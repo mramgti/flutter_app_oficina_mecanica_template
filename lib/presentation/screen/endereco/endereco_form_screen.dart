@@ -109,13 +109,13 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
                 Navigator.pop(context);
               }
             },
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.check, color: Colors.blue,),
           ),
           IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.cancel),
+            icon: const Icon(Icons.cancel, color: Colors.red,),
           ),
         ],
         title: const Text('Cadastro de Endereços'),
@@ -125,78 +125,80 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
   }
 
   Widget _body(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Form(
-        key: _formState,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Rua", "Campo Obrigatório!", _ruaController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Número", "Campo Obrigatório!", _numeroController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Complemento", "Campo Opcional", _complementoController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Bairro", "Campo Obrigatório!", _bairroController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Cidade", "Campo Obrigatório!", _cidadeController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Estado", "Campo Obrigatório!", _estadoController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("CEP", "Campo Obrigatório!", _cepController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Ponto de Referência", "Campo Opcional", _pontoReferenciaController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Telefone", "Campo Opcional", _telefoneController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("CPF", "Campo Opcional", _cpfController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("CNPJ", "Campo Opcional", _cnpjController),
-              ],
-            ),
-          ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formState,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Rua", "Campo Obrigatório!", _ruaController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Número", "Campo Obrigatório!", _numeroController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Complemento", "Campo Opcional", _complementoController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Bairro", "Campo Obrigatório!", _bairroController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Cidade", "Campo Obrigatório!", _cidadeController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Estado", "Campo Obrigatório!", _estadoController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("CEP", "Campo Obrigatório!", _cepController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Ponto de Referência", "Campo Opcional", _pontoReferenciaController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("Telefone", "Campo Opcional", _telefoneController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("CPF", "Campo Opcional", _cpfController),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  HelperWidgets.createTextForm("CNPJ", "Campo Opcional", _cnpjController),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -35,7 +35,8 @@ class SearchWidget extends StatelessWidget {
       ),
       body: _body(context),
       floatingActionButton: 
-          FloatingActionButton(child: const Icon(Icons.add),
+          FloatingActionButton(backgroundColor: Colors.blue[400],
+          child: const Icon(Icons.add, color: Colors.white,),
           onPressed: () async{
               await Navigator.pushNamed(context, routeNameForm);
               updateListView();
@@ -48,14 +49,14 @@ class SearchWidget extends StatelessWidget {
         child: Column(
           children: [
               _createSearchTextField(context),
-              SizedBox(height: 16,),
+              const SizedBox(height: 16,),
               _createListView(context)
           ]),
       );
   }
 
   Widget _createSearchTextField(BuildContext context){
-      return Row(children: [
+      return const Row(children: [
             Flexible(child: 
                 TextField(decoration: InputDecoration(
                                   labelText: "Pesquisar...",
@@ -73,7 +74,7 @@ class SearchWidget extends StatelessWidget {
 
       if (results.isEmpty)
       {
-        return Text("Nenhum dado encontrado!", 
+        return const Text("Sem dados disponíveis", 
             style: TextStyle(fontSize: 20),);
       }
       else

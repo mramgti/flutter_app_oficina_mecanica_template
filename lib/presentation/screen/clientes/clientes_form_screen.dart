@@ -94,13 +94,13 @@ class _ClientesFormScreenState extends State<ClientesFormScreen> {
                 Navigator.pop(context);
               }
             },
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.check, color: Colors.blue,),
           ),
           IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Icons.cancel),
+            icon: const Icon(Icons.cancel, color: Colors.red,),
           ),
         ],
         title: const Text('Cadastro de Clientes'),
