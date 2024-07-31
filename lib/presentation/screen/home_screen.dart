@@ -62,18 +62,6 @@ class HomeScreen extends StatelessWidget {
           ),
           ListTile(
             title:
-                const Text("Endereços", style: TextStyle(color: Colors.white)),
-            selected: _selectedIndex == 2,
-            leading: const Icon(Icons.location_on, color: Colors.white),
-            onTap: () async {
-              _selectedIndex = 2;
-              Navigator.pop(context);
-              await Navigator.pushNamed(
-                  context, EnderecoSearchScreen.routeName);
-            },
-          ),
-          ListTile(
-            title:
                 const Text("Financeiro", style: TextStyle(color: Colors.white)),
             selected: _selectedIndex == 3,
             leading: const Icon(Icons.attach_money, color: Colors.white),

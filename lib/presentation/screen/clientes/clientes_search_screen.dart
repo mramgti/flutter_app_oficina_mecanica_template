@@ -3,14 +3,11 @@ import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dar
 import 'package:flutter_app_oficina_mecanica_template/domain/models/clientes_model.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/repositories/clientes_repository.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/endereco_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/veiculos_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/search_widget.dart';
 
-/// Janela responsável por realizar a pesquisa dos clientes e também 
-/// possui um botão para chamar a janela de cadastro dos clientes.
 class ClientesSearchScreen extends StatefulWidget {
-  /* Definindo o nome da rota para a Janela. Definimos o atributo
-  como static para que possamos utilizar o nome da rota sem precisar
-  criar a instância da classe. */
   static const String routeName = "clientes";
 
   const ClientesSearchScreen({Key? key}) : super(key: key);
@@ -20,83 +17,163 @@ class ClientesSearchScreen extends StatefulWidget {
 }
 
 class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
-  /* Armazena os resultados provenientes do banco de dados. Essa lista
-  será utilizada para listar os dados no componente ListView. */
   List<Clientes> _results = [];
-
+  List<Clientes> _filteredResults = [];
   DatabaseProvider _databaseProvider = DatabaseProvider();
   late ClientesRepository _clientesRepository;
+  TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     initDatabase();
+    _searchController.addListener(_filterResults);
   }
 
-  /// Método responsável por abrir a conexão com o banco de dados
-  /// e criar a instância da classe ClientesRepository, consultar
-  /// todos os clientes e atribuir o resultado no objeto _results.
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   void initDatabase() async {
     await _databaseProvider.open();
     _clientesRepository = ClientesRepository(_databaseProvider);
     List<Clientes> res = await _clientesRepository.findAll();
     setState(() {
       _results = res;
+      _filteredResults = res;
+    });
+  }
+
+  void _filterResults() {
+    setState(() {
+      if (_searchController.text.isEmpty) {
+        _filteredResults = _results;
+      } else {
+        _filteredResults = _results.where((cliente) {
+          return cliente.nome
+                  ?.toLowerCase()
+                  .contains(_searchController.text.toLowerCase()) ??
+              false;
+        }).toList();
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SearchWidget(
-      title: "Clientes",
-      routeNameForm: ClientesFormScreen.routeName,
-      results: _results,
-      onItemBuilder: (context, index) => _createItem(context, index),
-      updateListView: () {
-        _buscarTodos();
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Clientes"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _createSearchTextField(context),
+            const SizedBox(height: 16),
+            _createListView(context),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[400],
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () async {
+          await Navigator.pushNamed(context, ClientesFormScreen.routeName);
+          _buscarTodos();
+        },
+      ),
     );
   }
 
-  /// Método responsável por criar a visualização de cada item da Lista.
+  Widget _createSearchTextField(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(
+          child: TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              labelText: "Pesquisar...",
+              suffixIcon: Icon(Icons.search),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _createListView(BuildContext context) {
+    if (_filteredResults.isEmpty) {
+      return const Text(
+        "Sem dados disponíveis",
+        style: TextStyle(fontSize: 20),
+      );
+    } else {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: _filteredResults.length,
+          itemBuilder: (context, index) => _createItem(context, index),
+        ),
+      );
+    }
+  }
+
   Widget _createItem(BuildContext context, int index) {
+    Clientes cliente = _filteredResults[index];
     return Card(
       child: ListTile(
-        title: Text(_results[index].nome ?? ''),
-        leading: IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () async {
-            // Recupera o objeto a ser excluído  
-            Clientes cliente = _results[index];
-
-            // Chama o método delete para excluir o registro do banco
-            await _clientesRepository.delete(cliente);
-
-            // Atualiza a lista de pesquisa novamente
-            await _buscarTodos();
-          },
+        title: Text(cliente.nome ?? ''),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.directions_car),
+              onPressed: () async {
+                // Código para editar o cliente
+                await Navigator.of(context).pushNamed(
+                  VeiculosFormScreen.routeName,
+                );
+                _buscarTodos();
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.location_on),
+              onPressed: () async {
+                // Código para editar o cliente
+                await Navigator.of(context).pushNamed(
+                  EnderecoFormScreen.routeName,
+                );
+                _buscarTodos();
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () async {
+                await _clientesRepository.delete(cliente);
+                _buscarTodos();
+              },
+            ),
+          ],
         ),
         onTap: () async {
-          // Recupera o item selecionado da lista
-          Clientes cliente = _results[index];
-
-          // O parâmetro arguments é utilizado para enviar dados à janela 
-          // que foi chamada pelo método pushNamed.
-          await Navigator.of(context).pushNamed(ClientesFormScreen.routeName,
-              arguments: cliente);
-
-          // Atualiza a lista de pesquisa novamente
-          await _buscarTodos();
+          await Navigator.of(context)
+              .pushNamed(ClientesFormScreen.routeName, arguments: cliente);
+          _buscarTodos();
         },
       ),
     );
   }
 
   Future<void> _buscarTodos() async {
-    // Atualiza a lista de pesquisa novamente
     List<Clientes> res = await _clientesRepository.findAll();
     setState(() {
       _results = res;
+      _filteredResults = res;
     });
   }
 }
