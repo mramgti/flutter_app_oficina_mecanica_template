@@ -26,14 +26,14 @@ class TipoFuncionario extends Entity {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'idTipoFuncionario': idTipoFuncionario,
-      'Nome': nome,
+      'nome': nome,
     };
   }
 
   factory TipoFuncionario.fromMap(Map<String, dynamic> map) {
     return TipoFuncionario(
       idTipoFuncionario: map['idTipoFuncionario'] != null ? map['idTipoFuncionario'] as int : null,
-      nome: map['Nome'] != null ? map['Nome'] as String : null,
+      nome: map['nome'] != null ? map['nome'] as String : null,
     );
   }
 
