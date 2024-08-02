@@ -1,42 +1,45 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class FornecedorEstoquePecas extends Entity {
-  String? cnpj;
-  int? codPeca;
+  int? idFornecedorEstoquePecas;
+  int? idFornecedor;
+  int? idEstoquePecaServico;
 
   FornecedorEstoquePecas({
-    super.id,
-    this.cnpj,
-    this.codPeca,
+    this.idFornecedorEstoquePecas,
+    this.idFornecedor,
+    this.idEstoquePecaServico,
   });
 
   FornecedorEstoquePecas copyWith({
-    int? id,
-    String? cnpj,
-    int? codPeca,
+    int? idFornecedorEstoquePecas,
+    int? idFornecedor,
+    int? idEstoquePecaServico,
   }) {
     return FornecedorEstoquePecas(
-      id: id ?? this.id,
-      cnpj: cnpj ?? this.cnpj,
-      codPeca: codPeca ?? this.codPeca,
+      idFornecedorEstoquePecas: idFornecedorEstoquePecas ?? this.idFornecedorEstoquePecas,
+      idFornecedor: idFornecedor ?? this.idFornecedor,
+      idEstoquePecaServico: idEstoquePecaServico ?? this.idEstoquePecaServico,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'CNPJ': cnpj,
-      'CodPeca': codPeca,
+      'idFornecedorEstoquePecas': idFornecedorEstoquePecas,
+      'idFornecedor': idFornecedor,
+      'idEstoquePecaServico': idEstoquePecaServico,
     };
   }
 
   factory FornecedorEstoquePecas.fromMap(Map<String, dynamic> map) {
     return FornecedorEstoquePecas(
-      id: map['id'] != null ? map['id'] as int : null,
-      cnpj: map['CNPJ'] != null ? map['CNPJ'] as String : null,
-      codPeca: map['CodPeca'] != null ? map['CodPeca'] as int : null,
+      idFornecedorEstoquePecas: map['idFornecedorEstoquePecas'] != null ? map['idFornecedorEstoquePecas'] as int : null,
+      idFornecedor: map['idFornecedor'] != null ? map['idFornecedor'] as int : null,
+      idEstoquePecaServico: map['idEstoquePecaServico'] != null ? map['idEstoquePecaServico'] as int : null,
     );
   }
 
@@ -45,30 +48,35 @@ class FornecedorEstoquePecas extends Entity {
   factory FornecedorEstoquePecas.fromJson(String source) => FornecedorEstoquePecas.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'FornecedorEstoquePecas(id: $id, cnpj: $cnpj, codPeca: $codPeca)';
-  }
+  String toString() => 'FornecedorEstoquePecas(idFornecedorEstoquePecas: $idFornecedorEstoquePecas, idFornecedor: $idFornecedor, idEstoquePecaServico: $idEstoquePecaServico)';
 
   @override
   bool operator ==(covariant FornecedorEstoquePecas other) {
     if (identical(this, other)) return true;
-
-    return
-      other.id == id &&
-      other.cnpj == cnpj &&
-      other.codPeca == codPeca;
+  
+    return 
+      other.idFornecedorEstoquePecas == idFornecedorEstoquePecas &&
+      other.idFornecedor == idFornecedor &&
+      other.idEstoquePecaServico == idEstoquePecaServico;
   }
 
   @override
-  int get hashCode {
-    return 
-      id.hashCode ^
-      cnpj.hashCode ^
-      codPeca.hashCode;
-  }
+  int get hashCode => idFornecedorEstoquePecas.hashCode ^ idFornecedor.hashCode ^ idEstoquePecaServico.hashCode;
 
   @override
   Entity fromMap(Map<String, dynamic> map) {
     return FornecedorEstoquePecas.fromMap(map);
   }
+  
+  @override
+  
+  get getValueId => idFornecedorEstoquePecas;
+  
+  @override
+  
+  String get primarykey => "idFornecedorEstoquePecas";
+  
+  @override
+  
+  String get tableName => "fornecedorEstoquePecas";
 }

@@ -2,13 +2,13 @@ import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dar
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class RepositorySQLite{
+class RepositorySQLite<T extends Entity> {
 
   late DatabaseProvider databaseProvider;
 
   RepositorySQLite(this.databaseProvider);
 
-  Future<int> insert(Entity entity) async{
+  Future<int> insert(T entity) async{
     try{
       
       await databaseProvider.open();
@@ -24,13 +24,13 @@ class RepositorySQLite{
       }    
   }
 
-  Future<int>  delete(Entity entity) async{
+  Future<int>  delete(T entity) async{
     try{
       await databaseProvider.open();
       Database dt = databaseProvider.database;
       return await dt.delete(entity.tableName, 
                     where : "${entity.primarykey} = ?", 
-                    whereArgs:  ["${entity.id}"]);
+                    whereArgs:  ["${entity.getValueId}"]);
     } on Exception catch (e) {
         throw Exception(e);
       } finally {
@@ -40,14 +40,14 @@ class RepositorySQLite{
       }                   
   }
 
-  Future<int>  update(Entity entity) async{
+  Future<int>  update(T entity) async{
     try{
       await databaseProvider.open();
       Database dt = databaseProvider.database;
       return await dt.update(entity.tableName,
                       entity.toMap(), 
                       where : "${entity.primarykey} = ?", 
-                    whereArgs:  ["${entity.id}"]);
+                    whereArgs:  ["${entity.getValueId}"]);
     } on Exception catch (e) {
         throw Exception(e);
       } finally {
@@ -57,19 +57,19 @@ class RepositorySQLite{
       }                     
   }
 
-  Future<Entity> findById(Entity entity) async{
-    late Entity entityResult;
+  Future<T> findById(T entity) async{
+    late T entityResult;
     try{
       
       await databaseProvider.open();
     Database dt = databaseProvider.database;
-    List<Map<String, Object?>> result = await dt.query(entity.tableName, where : " id = ?",
-                                  whereArgs : [entity.id]);     
+    List<Map<String, Object?>> result = await dt.query(entity.tableName, where : "${entity.primarykey} = ?",
+                                  whereArgs : [entity.getValueId]);     
 
     
      if (result.isNotEmpty){
         Map<String, Object?> item = result[0];
-        entityResult = entity.fromMap(item);
+        entityResult = entity.fromMap(item) as T;
      }
   } on Exception catch (e) {
         throw Exception(e);
@@ -83,20 +83,20 @@ class RepositorySQLite{
   }
 
   /// Busca todos os registro do banco de dados convertido para
-  /// um objeto do tipo List<Estado>.   
-  Future<List<Entity>> findAll(Entity entity) async{
+  /// um objeto do tipo List<T>.   
+  Future<List<T>> findAll(T entity) async{
     await databaseProvider.open();
     Database dt = databaseProvider.database;
     List<Map<String, Object?>> result = await dt.query(entity.tableName);
         
-    List<Entity> entityResults = [];
+    List<T> entityResults = [];
     
     //Se retornou resultados
     if (result.isNotEmpty){
         for (int i = 0; i < result.length; i++){            
             Map<String, Object?> item = result[i];
             //Convertendo um Map para o objeto apropriado
-            Entity entityResult = entity.fromMap(item);
+            T entityResult = entity.fromMap(item) as T;
             entityResults.add(entityResult);
         }
     }

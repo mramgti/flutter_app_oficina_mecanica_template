@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/clientes_model.dart';
-import 'package:flutter_app_oficina_mecanica_template/domain/repositories/clientes_repository.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/helper_widgets.dart';
 
 class ClientesFormScreen extends StatefulWidget {
@@ -20,16 +20,14 @@ class _ClientesFormScreenState extends State<ClientesFormScreen> {
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _dataNascimentoController = TextEditingController();
-  TextEditingController _dataCadastroController = TextEditingController();
-  TextEditingController _codOrdemServicoController = TextEditingController();
 
   Clientes _cliente = Clientes();
 
   DatabaseProvider _databaseProvider = DatabaseProvider();
-  late ClientesRepository _clientesRepository;
+  late RepositorySQLite _clientesRepository;
 
   void initDatabase() async {
-    _clientesRepository = ClientesRepository(_databaseProvider);
+    _clientesRepository = RepositorySQLite(_databaseProvider);
   }
 
   @override
@@ -43,10 +41,8 @@ class _ClientesFormScreenState extends State<ClientesFormScreen> {
     _cliente.nome = _nomeController.text;
     _cliente.email = _emailController.text;
     _cliente.dataNascimento = _dataNascimentoController.text;
-    _cliente.dataCadastro = _dataCadastroController.text;
-    _cliente.codOrdemServico = int.tryParse(_codOrdemServicoController.text);
 
-    if (_cliente.id == null) {
+    if (_cliente.idCliente == null) {
       await _clientesRepository.insert(_cliente);
     } else {
       await _clientesRepository.update(_cliente);
@@ -57,13 +53,11 @@ class _ClientesFormScreenState extends State<ClientesFormScreen> {
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)!.settings.arguments != null) {
       Clientes cliente = ModalRoute.of(context)!.settings.arguments as Clientes;
-      _cliente.id = cliente.id;
+      _cliente.idCliente = cliente.idCliente;
       _cpfController.text = cliente.cpf!;
       _nomeController.text = cliente.nome!;
       _emailController.text = cliente.email!;
       _dataNascimentoController.text = cliente.dataNascimento!;
-      _dataCadastroController.text = cliente.dataCadastro!;
-      _codOrdemServicoController.text = cliente.codOrdemServico!.toString();
     }
 
     return Scaffold(
@@ -137,18 +131,6 @@ class _ClientesFormScreenState extends State<ClientesFormScreen> {
             Row(
               children: [
                 HelperWidgets.createTextForm("Data de Nascimento", "Campo Obrigatório!", _dataNascimentoController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Data de Cadastro", "Campo Obrigatório!", _dataCadastroController),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                HelperWidgets.createTextForm("Código Ordem de Serviço", "Campo Obrigatório!", _codOrdemServicoController),
               ],
             ),
           ],

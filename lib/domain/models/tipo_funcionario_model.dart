@@ -3,33 +3,36 @@ import 'dart:convert';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class TipoFuncionario extends Entity {
+  
+  int? idTipoFuncionario;
   String? nome;
 
   TipoFuncionario({
-    super.id,
+    this.idTipoFuncionario,
     this.nome,
   });
 
   TipoFuncionario copyWith({
-    int? id,
+    int? idTipoFuncionario,
     String? nome,
   }) {
     return TipoFuncionario(
-      id: id ?? this.id,
+      idTipoFuncionario: idTipoFuncionario ?? this.idTipoFuncionario,
       nome: nome ?? this.nome,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'idTipoFuncionario': idTipoFuncionario,
       'Nome': nome,
     };
   }
 
   factory TipoFuncionario.fromMap(Map<String, dynamic> map) {
     return TipoFuncionario(
-      id: map['id'] != null ? map['id'] as int : null,
+      idTipoFuncionario: map['idTipoFuncionario'] != null ? map['idTipoFuncionario'] as int : null,
       nome: map['Nome'] != null ? map['Nome'] as String : null,
     );
   }
@@ -40,7 +43,7 @@ class TipoFuncionario extends Entity {
 
   @override
   String toString() {
-    return 'TipoFuncionario(id: $id, nome: $nome)';
+    return 'TipoFuncionario(idTipoFuncionario: $idTipoFuncionario, nome: $nome)';
   }
 
   @override
@@ -48,14 +51,14 @@ class TipoFuncionario extends Entity {
     if (identical(this, other)) return true;
 
     return 
-      other.id == id &&
+      other.idTipoFuncionario == idTipoFuncionario &&
       other.nome == nome;
   }
 
   @override
   int get hashCode {
     return 
-      id.hashCode ^
+      idTipoFuncionario.hashCode ^
       nome.hashCode;
   }
 
@@ -63,4 +66,16 @@ class TipoFuncionario extends Entity {
   Entity fromMap(Map<String, dynamic> map) {
     return TipoFuncionario.fromMap(map);
   }
+  
+  @override
+  
+  get getValueId => idTipoFuncionario;
+  
+  @override
+  
+  String get primarykey => "idTipoFuncionario";
+  
+  @override
+  
+  String get tableName => "tipoFuncionario";
 }

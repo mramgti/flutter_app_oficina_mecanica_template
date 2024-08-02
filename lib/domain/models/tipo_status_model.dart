@@ -1,36 +1,39 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class TipoStatus extends Entity {
-  String? status;
+  int? idTipoStatus;
+  String? nome;
 
   TipoStatus({
-    super.id,
-    this.status,
+    this.idTipoStatus,
+    this.nome,
   });
 
   TipoStatus copyWith({
-    int? id,
-    String? status,
+    int? idTipoStatus,
+    String? nome,
   }) {
     return TipoStatus(
-      id: id ?? this.id,
-      status: status ?? this.status,
+      idTipoStatus: idTipoStatus ?? this.idTipoStatus,
+      nome: nome ?? this.nome,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'Status': status,
+      'idTipoStatus': idTipoStatus,
+      'nome': nome,
     };
   }
 
   factory TipoStatus.fromMap(Map<String, dynamic> map) {
     return TipoStatus(
-      id: map['id'] != null ? map['id'] as int : null,
-      status: map['Status'] != null ? map['Status'] as String : null,
+      idTipoStatus: map['idTipoStatus'] != null ? map['idTipoStatus'] as int : null,
+      nome: map['nome'] != null ? map['nome'] as String : null,
     );
   }
 
@@ -39,27 +42,34 @@ class TipoStatus extends Entity {
   factory TipoStatus.fromJson(String source) => TipoStatus.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'TipoStatus(id: $id, status: $status)';
-  }
+  String toString() => 'TipoStatus(idTipoStatus: $idTipoStatus, nome: $nome)';
 
   @override
   bool operator ==(covariant TipoStatus other) {
     if (identical(this, other)) return true;
-
-    return
-      other.id == id && 
-      other.status == status;
+  
+    return 
+      other.idTipoStatus == idTipoStatus &&
+      other.nome == nome;
   }
 
   @override
-  int get hashCode {
-    return id.hashCode ^
-      status.hashCode;
-  }
+  int get hashCode => idTipoStatus.hashCode ^ nome.hashCode;
 
   @override
   Entity fromMap(Map<String, dynamic> map) {
     return TipoStatus.fromMap(map);
   }
+  
+  @override
+  
+  get getValueId => idTipoStatus;
+  
+  @override
+  
+  String get primarykey => "idTipoStatus";
+  
+  @override
+  
+  String get tableName => "tipoStatus";
 }

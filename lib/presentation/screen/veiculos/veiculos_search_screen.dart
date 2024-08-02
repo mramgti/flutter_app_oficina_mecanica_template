@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
-import 'package:flutter_app_oficina_mecanica_template/domain/models/endereco_model.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/models/veiculos_model.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/veiculos/veiculos_form_screen.dart';
 
-class EnderecoSearchScreen extends StatefulWidget {
-  static const String routeName = "endereco";
+class VeiculosSearchScreen extends StatefulWidget {
+  static const String routeName = "veiculos";
 
-  const EnderecoSearchScreen({Key? key}) : super(key: key);
+  const VeiculosSearchScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _EnderecoSearchScreenState();
+  State<StatefulWidget> createState() => _VeiculosSearchScreenState();
 }
 
-class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
-  List<Endereco> _results = [];
-  List<Endereco> _filteredResults = [];
+class _VeiculosSearchScreenState extends State<VeiculosSearchScreen> {
+  List<Veiculos> _results = [];
+  List<Veiculos> _filteredResults = [];
   DatabaseProvider _databaseProvider = DatabaseProvider();
-  late RepositorySQLite _enderecoRepository;
+  late RepositorySQLite _veiculosRepository;
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -36,12 +36,12 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
 
   void initDatabase() async {
     await _databaseProvider.open();
-    _enderecoRepository = RepositorySQLite(_databaseProvider);
-    List<Entity> res = await _enderecoRepository.findAll(Endereco());
-    List<Endereco> enderecoList = res.whereType<Endereco>().toList();
+    _veiculosRepository = RepositorySQLite(_databaseProvider);
+    List<Entity> res = await _veiculosRepository.findAll(Veiculos());
+    List<Veiculos> veiculosList = res.whereType<Veiculos>().toList();
     setState(() {
-      _results = enderecoList;
-      _filteredResults = enderecoList;
+      _results = veiculosList;
+      _filteredResults = veiculosList;
     });
   }
 
@@ -50,8 +50,8 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
       if (_searchController.text.isEmpty) {
         _filteredResults = _results;
       } else {
-        _filteredResults = _results.where((endereco) {
-          return endereco.rua?.toLowerCase().contains(_searchController.text.toLowerCase()) ?? false;
+        _filteredResults = _results.where((veiculo) {
+          return veiculo.placa?.toLowerCase().contains(_searchController.text.toLowerCase()) ?? false;
         }).toList();
       }
     });
@@ -61,7 +61,7 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Endereços"),
+        title: const Text("Veículos"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -80,7 +80,7 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
           color: Colors.white,
         ),
         onPressed: () async {
-          await Navigator.pushNamed(context, EnderecoFormScreen.routeName);
+          await Navigator.pushNamed(context, VeiculosFormScreen.routeName);
           _buscarTodos();
         },
       ),
@@ -93,7 +93,7 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
         Flexible(
           child: TextField(
             controller: _searchController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Pesquisar...",
               suffixIcon: Icon(Icons.search),
             ),
@@ -120,20 +120,20 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
   }
 
   Widget _createItem(BuildContext context, int index) {
-    Endereco endereco = _filteredResults[index];
+    Veiculos veiculo = _filteredResults[index];
     return Card(
       child: ListTile(
-        title: Text(endereco.rua ?? ''),
-        subtitle: Text('${endereco.bairro ?? ''}, ${endereco.cidade ?? ''}'),
+        title: Text(veiculo.placa ?? ''),
+        subtitle: Text('${veiculo.modelo ?? ''}, ${veiculo.marca ?? ''}'),
         leading: IconButton(
           icon: const Icon(Icons.delete),
           onPressed: () async {
-            await _enderecoRepository.delete(endereco);
+            await _veiculosRepository.delete(veiculo);
             _buscarTodos();
           },
         ),
         onTap: () async {
-          await Navigator.of(context).pushNamed(EnderecoFormScreen.routeName, arguments: endereco);
+          await Navigator.of(context).pushNamed(VeiculosFormScreen.routeName, arguments: veiculo);
           _buscarTodos();
         },
       ),
@@ -141,11 +141,11 @@ class _EnderecoSearchScreenState extends State<EnderecoSearchScreen> {
   }
 
   Future<void> _buscarTodos() async {
-    List<Entity> res = await _enderecoRepository.findAll(Endereco());
-    List<Endereco> enderecoList = res.whereType<Endereco>().toList();
+    List<Entity> res = await _veiculosRepository.findAll(Veiculos());
+    List<Veiculos> veiculosList = res.whereType<Veiculos>().toList();
     setState(() {
-      _results = enderecoList;
-      _filteredResults = enderecoList;
+      _results = veiculosList;
+      _filteredResults = veiculosList;
     });
   }
 }

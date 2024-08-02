@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/veiculos_model.dart';
-import 'package:flutter_app_oficina_mecanica_template/domain/repositories/veiculos_repository.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/helper_widgets.dart';
 
 class VeiculosFormScreen extends StatefulWidget {
@@ -25,10 +25,10 @@ class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
   Veiculos _veiculos = Veiculos();
 
   DatabaseProvider _databaseProvider = DatabaseProvider();
-  late VeiculosRepository _veiculoRepository;
+  late RepositorySQLite _veiculoRepository;
 
   void initDatabase() async {
-    _veiculoRepository = VeiculosRepository(_databaseProvider);
+    _veiculoRepository = RepositorySQLite(_databaseProvider);
   }
 
   @override
@@ -44,7 +44,7 @@ class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
     _veiculos.cor = _corController.text;
     _veiculos.ano = int.tryParse(_anoController.text);
 
-    if (_veiculos.id == null) {
+    if (_veiculos.idVeiculo == null) {
       await _veiculoRepository.insert(_veiculos);
     } else {
       await _veiculoRepository.update(_veiculos);
@@ -55,7 +55,7 @@ class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)!.settings.arguments != null) {
       Veiculos veiculo = ModalRoute.of(context)!.settings.arguments as Veiculos;
-      _veiculos.id = veiculo.id;
+      _veiculos.idVeiculo = veiculo.idVeiculo;
       _placaController.text = veiculo.placa!;
       _marcaController.text = veiculo.marca!;
       _modeloController.text = veiculo.modelo!;

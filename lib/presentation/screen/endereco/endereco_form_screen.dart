@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/endereco_model.dart';
-import 'package:flutter_app_oficina_mecanica_template/domain/repositories/endereco_repository.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/helper_widgets.dart';
 
 class EnderecoFormScreen extends StatefulWidget {
@@ -25,16 +25,14 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
   TextEditingController _cepController = TextEditingController();
   TextEditingController _pontoReferenciaController = TextEditingController();
   TextEditingController _telefoneController = TextEditingController();
-  TextEditingController _cpfController = TextEditingController();
-  TextEditingController _cnpjController = TextEditingController();
 
   Endereco _endereco = Endereco();
 
   DatabaseProvider _databaseProvider = DatabaseProvider();
-  late EnderecoRepository _enderecoRepository;
+  late RepositorySQLite _enderecoRepository;
 
   void initDatabase() async {
-    _enderecoRepository = EnderecoRepository(_databaseProvider);
+    _enderecoRepository = RepositorySQLite(_databaseProvider);
   }
 
   @override
@@ -53,10 +51,8 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
     _endereco.cep = _cepController.text;
     _endereco.pontoReferencia = _pontoReferenciaController.text;
     _endereco.telefone = _telefoneController.text;
-    _endereco.cpf = _cpfController.text;
-    _endereco.cnpj = _cnpjController.text;
 
-    if (_endereco.id == null) {
+    if (_endereco.idEndereco == null) {
       await _enderecoRepository.insert(_endereco);
     } else {
       await _enderecoRepository.update(_endereco);
@@ -67,7 +63,7 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)!.settings.arguments != null) {
       Endereco endereco = ModalRoute.of(context)!.settings.arguments as Endereco;
-      _endereco.id = endereco.id;
+      _endereco.idEndereco = endereco.idEndereco;
       _ruaController.text = endereco.rua ?? '';
       _numeroController.text = endereco.numero ?? '';
       _complementoController.text = endereco.complemento ?? '';
@@ -77,8 +73,6 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
       _cepController.text = endereco.cep ?? '';
       _pontoReferenciaController.text = endereco.pontoReferencia ?? '';
       _telefoneController.text = endereco.telefone ?? '';
-      _cpfController.text = endereco.cpf ?? '';
-      _cnpjController.text = endereco.cnpj ?? '';
     }
 
     return Scaffold(
@@ -183,18 +177,6 @@ class _EnderecoFormScreenState extends State<EnderecoFormScreen> {
               Row(
                 children: [
                   HelperWidgets.createTextForm("Telefone", "Campo Opcional", _telefoneController),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  HelperWidgets.createTextForm("CPF", "Campo Opcional", _cpfController),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  HelperWidgets.createTextForm("CNPJ", "Campo Opcional", _cnpjController),
                 ],
               ),
             ],

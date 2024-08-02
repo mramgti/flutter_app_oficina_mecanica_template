@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_search_screen.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   /* Definindo o nome da rota para Janela. Definimos o atributo
   como static para que possamos utilizar o nome da rota sem precisar

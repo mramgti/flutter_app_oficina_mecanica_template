@@ -3,15 +3,14 @@
 ///para todas as entidades
 abstract class Entity {
   
-  int? id;
+  //int? id;
+  dynamic get getValueId;
 
-  String tableName = "";
+  String get tableName;
 
-  String primarykey = "id";
+  String get primarykey;
 
-  Entity({
-    this.id,    
-  });
+  Entity();
 
   Map<String, dynamic> toMap();
   Entity fromMap(Map<String, dynamic> map);

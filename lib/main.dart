@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/home_screen.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_search_screen.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/intro_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/routes_names.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/clientes_model.dart';
-import 'package:flutter_app_oficina_mecanica_template/domain/repositories/clientes_repository.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_form_screen.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/endereco_form_screen.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/veiculos_form_screen.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/search_widget.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/veiculos/veiculos_form_screen.dart';
 
 class ClientesSearchScreen extends StatefulWidget {
   static const String routeName = "clientes";
@@ -20,7 +20,7 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
   List<Clientes> _results = [];
   List<Clientes> _filteredResults = [];
   DatabaseProvider _databaseProvider = DatabaseProvider();
-  late ClientesRepository _clientesRepository;
+  late RepositorySQLite _clientesRepository;
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -37,14 +37,17 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
   }
 
   void initDatabase() async {
-    await _databaseProvider.open();
-    _clientesRepository = ClientesRepository(_databaseProvider);
-    List<Clientes> res = await _clientesRepository.findAll();
-    setState(() {
-      _results = res;
-      _filteredResults = res;
-    });
-  }
+  await _databaseProvider.open();
+  _clientesRepository = RepositorySQLite(_databaseProvider);
+  List<Entity> res = await _clientesRepository.findAll(Clientes());
+  List<Clientes> clientesList = res.whereType<Clientes>().toList();
+
+  setState(() {
+    _results = clientesList;
+    _filteredResults = clientesList;
+  });
+}
+
 
   void _filterResults() {
     setState(() {
@@ -136,7 +139,7 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
               onPressed: () async {
                 // Código para editar o cliente
                 await Navigator.of(context).pushNamed(
-                  VeiculosFormScreen.routeName,
+                  VeiculosFormScreen.routeName
                 );
                 _buscarTodos();
               },
@@ -146,7 +149,7 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
               onPressed: () async {
                 // Código para editar o cliente
                 await Navigator.of(context).pushNamed(
-                  EnderecoFormScreen.routeName,
+                  EnderecoFormScreen.routeName
                 );
                 _buscarTodos();
               },
@@ -170,10 +173,11 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
   }
 
   Future<void> _buscarTodos() async {
-    List<Clientes> res = await _clientesRepository.findAll();
+    List<Entity> res = await _clientesRepository.findAll(Clientes());
+    List<Clientes> clientesList = res.whereType<Clientes>().toList();
     setState(() {
-      _results = res;
-      _filteredResults = res;
+      _results = clientesList;
+      _filteredResults = clientesList;
     });
   }
 }

@@ -1,36 +1,39 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class TipoPagamento extends Entity {
-  String? descricao;
+  int? idTipoPagamento;
+  String? nome;
 
   TipoPagamento({
-    super.id,
-    this.descricao,
+    this.idTipoPagamento,
+    this.nome,
   });
 
   TipoPagamento copyWith({
-    int? id,
-    String? descricao,
+    int? idTipoPagamento,
+    String? nome,
   }) {
     return TipoPagamento(
-      id: id ?? this.id,
-      descricao: descricao ?? this.descricao,
+      idTipoPagamento: idTipoPagamento ?? this.idTipoPagamento,
+      nome: nome ?? this.nome,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'Descricao': descricao,
+      'idTipoPagamento': idTipoPagamento,
+      'nome': nome,
     };
   }
 
   factory TipoPagamento.fromMap(Map<String, dynamic> map) {
     return TipoPagamento(
-      id: map['id'] != null ? map['id'] as int : null,
-      descricao: map['Descricao'] != null ? map['Descricao'] as String : null,
+      idTipoPagamento: map['idTipoPagamento'] != null ? map['idTipoPagamento'] as int : null,
+      nome: map['nome'] != null ? map['nome'] as String : null,
     );
   }
 
@@ -39,28 +42,34 @@ class TipoPagamento extends Entity {
   factory TipoPagamento.fromJson(String source) => TipoPagamento.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'TipoPagamento(id: $id, descricao: $descricao)';
-  }
+  String toString() => 'TipoPagamento(idTipoPagamento: $idTipoPagamento, nome: $nome)';
 
   @override
   bool operator ==(covariant TipoPagamento other) {
     if (identical(this, other)) return true;
-
+  
     return 
-      other.id == id &&
-      other.descricao == descricao;
+      other.idTipoPagamento == idTipoPagamento &&
+      other.nome == nome;
   }
 
   @override
-  int get hashCode {
-    return 
-      id.hashCode ^
-      descricao.hashCode;
-  }
+  int get hashCode => idTipoPagamento.hashCode ^ nome.hashCode;
 
   @override
   Entity fromMap(Map<String, dynamic> map) {
     return TipoPagamento.fromMap(map);
   }
+  
+  @override
+  
+  get getValueId => idTipoPagamento;
+  
+  @override
+  
+  String get primarykey => "idTipoPagamento";
+  
+  @override
+  
+  String get tableName => "tipoPagamento";
 }

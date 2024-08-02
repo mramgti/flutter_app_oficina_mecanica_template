@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_oficina_mecanica_template/presentation/screen/home_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/login_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/general_button.dart';
-import 'package:flutter_app_oficina_mecanica_template/routes_names.dart';
 
 
 class IntroScreen extends StatelessWidget {
