@@ -4,6 +4,13 @@ import 'package:flutter_app_oficina_mecanica_template/domain/models/veiculos_mod
 import 'package:flutter_app_oficina_mecanica_template/domain/repositories/repository_sqlite.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/widgets/helper_widgets.dart';
 
+class VeiculoArguments {
+  final int idCliente;
+  final Veiculos? veiculo;
+
+  VeiculoArguments({required this.idCliente, this.veiculo});
+}
+
 class VeiculosFormScreen extends StatefulWidget {
   static const String routeName = "veiculosForm";
 
@@ -16,25 +23,45 @@ class VeiculosFormScreen extends StatefulWidget {
 class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
 
-  TextEditingController _placaController = TextEditingController();
-  TextEditingController _marcaController = TextEditingController();
-  TextEditingController _modeloController = TextEditingController();
-  TextEditingController _corController = TextEditingController();
-  TextEditingController _anoController = TextEditingController();
+  final TextEditingController _placaController = TextEditingController();
+  final TextEditingController _marcaController = TextEditingController();
+  final TextEditingController _modeloController = TextEditingController();
+  final TextEditingController _corController = TextEditingController();
+  final TextEditingController _anoController = TextEditingController();
 
   Veiculos _veiculos = Veiculos();
 
   DatabaseProvider _databaseProvider = DatabaseProvider();
   late RepositorySQLite _veiculoRepository;
 
-  void initDatabase() async {
-    _veiculoRepository = RepositorySQLite(_databaseProvider);
-  }
+  int? _idCliente;
 
   @override
   void initState() {
     super.initState();
     initDatabase();
+  }
+
+  void initDatabase() async {
+    _veiculoRepository = RepositorySQLite(_databaseProvider);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)?.settings.arguments as VeiculoArguments?;
+    if (arguments != null) {
+      _idCliente = arguments.idCliente;
+      final veiculo = arguments.veiculo;
+      if (veiculo != null) {
+        _veiculos = veiculo;
+        _placaController.text = veiculo.placa ?? '';
+        _marcaController.text = veiculo.marca ?? '';
+        _modeloController.text = veiculo.modelo ?? '';
+        _corController.text = veiculo.cor ?? '';
+        _anoController.text = veiculo.ano?.toString() ?? '';
+      }
+    }
   }
 
   void save() async {
@@ -43,6 +70,10 @@ class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
     _veiculos.modelo = _modeloController.text;
     _veiculos.cor = _corController.text;
     _veiculos.ano = int.tryParse(_anoController.text);
+
+    if (_idCliente != null) {
+      _veiculos.idCliente = _idCliente; // Associando o veículo ao cliente
+    }
 
     if (_veiculos.idVeiculo == null) {
       await _veiculoRepository.insert(_veiculos);
@@ -53,16 +84,6 @@ class _VeiculosFormScreenState extends State<VeiculosFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (ModalRoute.of(context)!.settings.arguments != null) {
-      Veiculos veiculo = ModalRoute.of(context)!.settings.arguments as Veiculos;
-      _veiculos.idVeiculo = veiculo.idVeiculo;
-      _placaController.text = veiculo.placa!;
-      _marcaController.text = veiculo.marca!;
-      _modeloController.text = veiculo.modelo!;
-      _corController.text = veiculo.cor!;
-      _anoController.text = veiculo.ano!.toString();
-    }
-
     return Scaffold(
       appBar: AppBar(
         actions: [

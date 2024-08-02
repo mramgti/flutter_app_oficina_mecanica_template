@@ -37,17 +37,16 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
   }
 
   void initDatabase() async {
-  await _databaseProvider.open();
-  _clientesRepository = RepositorySQLite(_databaseProvider);
-  List<Entity> res = await _clientesRepository.findAll(Clientes());
-  List<Clientes> clientesList = res.whereType<Clientes>().toList();
+    await _databaseProvider.open();
+    _clientesRepository = RepositorySQLite(_databaseProvider);
+    List<Entity> res = await _clientesRepository.findAll(Clientes());
+    List<Clientes> clientesList = res.whereType<Clientes>().toList();
 
-  setState(() {
-    _results = clientesList;
-    _filteredResults = clientesList;
-  });
-}
-
+    setState(() {
+      _results = clientesList;
+      _filteredResults = clientesList;
+    });
+  }
 
   void _filterResults() {
     setState(() {
@@ -137,20 +136,17 @@ class _ClientesSearchScreenState extends State<ClientesSearchScreen> {
             IconButton(
               icon: const Icon(Icons.directions_car),
               onPressed: () async {
-                // Código para editar o cliente
                 await Navigator.of(context).pushNamed(
-                  VeiculosFormScreen.routeName
-                );
+                    VeiculosFormScreen.routeName,
+                    arguments: VeiculoArguments(idCliente: cliente.idCliente ?? 0));
                 _buscarTodos();
               },
             ),
             IconButton(
               icon: const Icon(Icons.location_on),
               onPressed: () async {
-                // Código para editar o cliente
-                await Navigator.of(context).pushNamed(
-                  EnderecoFormScreen.routeName
-                );
+                await Navigator.of(context)
+                    .pushNamed(EnderecoFormScreen.routeName, arguments: EnderecoArguments(idCliente: cliente.idCliente ?? 0));
                 _buscarTodos();
               },
             ),
