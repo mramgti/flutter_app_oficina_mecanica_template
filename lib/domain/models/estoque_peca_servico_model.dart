@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class EstoquePecaServico extends Entity {
@@ -41,10 +42,10 @@ class EstoquePecaServico extends Entity {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'idEstoquePecaServico': idEstoquePecaServico,
-      'Nome': nome,
-      'PrecoCompra': precoCompra,
-      'PrecoVenda': precoVenda,
-      'Quantidade': quantidade,
+      'nome': nome,
+      'precoCompra': precoCompra,
+      'precoVenda': precoVenda,
+      'quantidade': quantidade,
       'idTipoPecaServico': idTipoPecaServico,
     };
   }
@@ -52,10 +53,10 @@ class EstoquePecaServico extends Entity {
   factory EstoquePecaServico.fromMap(Map<String, dynamic> map) {
     return EstoquePecaServico(
       idEstoquePecaServico: map['idEstoquePecaServico'] != null ? map['idEstoquePecaServico'] as int : null,
-      nome: map['Nome'] != null ? map['Nome'] as String : null,
-      precoCompra: map['PrecoCompra'] != null ? map['PrecoCompra'] as double : null,
-      precoVenda: map['PrecoVenda'] != null ? map['PrecoVenda'] as double : null,
-      quantidade: map['Quantidade'] != null ? map['Quantidade'] as int : null,
+      nome: map['nome'] != null ? map['nome'] as String : null,
+      precoCompra: map['precoCompra'] != null ? map['precoCompra'] as double : null,
+      precoVenda: map['precoVenda'] != null ? map['precoVenda'] as double : null,
+      quantidade: map['quantidade'] != null ? map['quantidade'] as int : null,
       idTipoPecaServico: map['idTipoPecaServico'] != null ? map['idTipoPecaServico'] as int : null,
     );
   }
