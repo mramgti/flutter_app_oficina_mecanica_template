@@ -10,16 +10,16 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue[400],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // logo
             const Icon(
-              Icons.car_repair_sharp,
+              Icons.build,
               size: 82,
-              color: Colors.black,
+              color: Colors.white,
             ),
 
             const SizedBox(
@@ -27,7 +27,7 @@ class IntroScreen extends StatelessWidget {
             ),
             //title
             const Text('Oficina Mecânica',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)),
 
             const SizedBox(
               height: 10,
@@ -36,7 +36,7 @@ class IntroScreen extends StatelessWidget {
             const Text(
               'O melhor lugal para levar seu carro',
               style: TextStyle(
-                  color: Colors.black),
+                  color: Color.fromARGB(195, 255, 255, 255)),
             ),
             // button to login
 

@@ -72,50 +72,52 @@ class Veiculos extends Entity {
   factory Veiculos.fromJson(String source) =>
       Veiculos.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  // @override
+  // String toString() {
+  //   return 'Veiculos(idVeiculo: $idVeiculo, placa: $placa, marca: $marca, modelo: $modelo, cor: $cor, ano: $ano, idCliente: $idCliente)';
+  // }
+
   @override
   String toString() {
-    return 'Veiculos(idVeiculo: $idVeiculo, placa: $placa, marca: $marca, modelo: $modelo, cor: $cor, ano: $ano, idCliente: $idCliente)';
+    return modelo ??
+        ''; // Retorna o modelo ou uma string vazia se modelo for nulo
   }
 
   @override
   bool operator ==(covariant Veiculos other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.idVeiculo == idVeiculo &&
-      other.placa == placa &&
-      other.marca == marca &&
-      other.modelo == modelo &&
-      other.cor == cor &&
-      other.ano == ano &&
-      other.idCliente == idCliente;
+
+    return other.idVeiculo == idVeiculo &&
+        other.placa == placa &&
+        other.marca == marca &&
+        other.modelo == modelo &&
+        other.cor == cor &&
+        other.ano == ano &&
+        other.idCliente == idCliente;
   }
 
   @override
   int get hashCode {
     return idVeiculo.hashCode ^
-      placa.hashCode ^
-      marca.hashCode ^
-      modelo.hashCode ^
-      cor.hashCode ^
-      ano.hashCode ^
-      idCliente.hashCode;
+        placa.hashCode ^
+        marca.hashCode ^
+        modelo.hashCode ^
+        cor.hashCode ^
+        ano.hashCode ^
+        idCliente.hashCode;
   }
 
   @override
   Entity fromMap(Map<String, dynamic> map) {
     return Veiculos.fromMap(map);
   }
-  
+
   @override
-  
   get getValueId => idVeiculo;
-  
+
   @override
-  
   String get primarykey => "idVeiculo";
-  
+
   @override
-  
   String get tableName => "veiculos";
 }

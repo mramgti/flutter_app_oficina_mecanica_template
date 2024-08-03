@@ -4,6 +4,8 @@ import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornec
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios.form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/ordem_servico/ordem_servico_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/ordem_servico/ordem_servico_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_funcionario/tipo_funcionario_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_funcionario/tipo_funcionario_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_pagamento/tipo_pagamento_form_screen.dart';
@@ -44,5 +46,7 @@ class RoutesNames {
         FuncionariosFormScreen.routeName: (context) => FuncionariosFormScreen(),
         FornecedorSearchScreen.routeName: (context) => FornecedorSearchScreen(),
         FornecedorFormScreen.routeName: (context) => FornecedorFormScreen(),
+        OrdemServicoSearchScreen.routeName: (context) => OrdemServicoSearchScreen(),
+        OrdemServicoFormScreen.routeName: (context) => OrdemServicoFormScreen(),
       };
 }

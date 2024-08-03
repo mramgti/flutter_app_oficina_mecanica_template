@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/admin_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/ordem_servico/ordem_servico_search_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'Bem-vindo à Oficina Mecânica!',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -47,8 +48,8 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'Selecione uma opção no menu lateral.',
                   style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                    fontSize: 16,
+                    color: Color.fromARGB(206, 255, 255, 255),
                   ),
                 ),
               ],
@@ -90,7 +91,7 @@ class HomeScreen extends StatelessWidget {
               _selectedIndex = 1;
               Navigator.pop(context);
               await Navigator.pushNamed(
-                  context, EnderecoSearchScreen.routeName);
+                  context, OrdemServicoSearchScreen.routeName);
             },
           ),
           ListTile(

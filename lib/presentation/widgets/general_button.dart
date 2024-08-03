@@ -11,7 +11,7 @@ class GeneralButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.blue[400],
+            color: Colors.blue[200],
             borderRadius: BorderRadius.circular(16)),
         padding: const EdgeInsets.all(16),
         child: child,

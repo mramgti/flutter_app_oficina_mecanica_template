@@ -32,25 +32,30 @@ class TipoPagamento extends Entity {
 
   factory TipoPagamento.fromMap(Map<String, dynamic> map) {
     return TipoPagamento(
-      idTipoPagamento: map['idTipoPagamento'] != null ? map['idTipoPagamento'] as int : null,
+      idTipoPagamento:
+          map['idTipoPagamento'] != null ? map['idTipoPagamento'] as int : null,
       nome: map['nome'] != null ? map['nome'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TipoPagamento.fromJson(String source) => TipoPagamento.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory TipoPagamento.fromJson(String source) =>
+      TipoPagamento.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  // @override
+  // String toString() => 'TipoPagamento(idTipoPagamento: $idTipoPagamento, nome: $nome)';
 
   @override
-  String toString() => 'TipoPagamento(idTipoPagamento: $idTipoPagamento, nome: $nome)';
+  String toString() {
+    return nome ?? ''; // Retorna o nome ou uma string vazia se nome for nulo
+  }
 
   @override
   bool operator ==(covariant TipoPagamento other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.idTipoPagamento == idTipoPagamento &&
-      other.nome == nome;
+
+    return other.idTipoPagamento == idTipoPagamento && other.nome == nome;
   }
 
   @override
@@ -60,16 +65,13 @@ class TipoPagamento extends Entity {
   Entity fromMap(Map<String, dynamic> map) {
     return TipoPagamento.fromMap(map);
   }
-  
+
   @override
-  
   get getValueId => idTipoPagamento;
-  
+
   @override
-  
   String get primarykey => "idTipoPagamento";
-  
+
   @override
-  
   String get tableName => "tipoPagamento";
 }

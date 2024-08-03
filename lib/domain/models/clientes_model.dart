@@ -47,6 +47,7 @@ class Clientes extends Entity {
     };
   }
 
+
   factory Clientes.fromMap(Map<String, dynamic> map) {
     return Clientes(
       idCliente: map['idCliente'] != null ? map['idCliente'] as int : null,
@@ -61,9 +62,14 @@ class Clientes extends Entity {
 
   factory Clientes.fromJson(String source) => Clientes.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @override
+  // @override
+  // String toString() {
+  //   return 'Clientes(idCliente: $idCliente, cpf: $cpf, nome: $nome, email: $email, dataNascimento: $dataNascimento)';
+  // }
+
+@override
   String toString() {
-    return 'Clientes(idCliente: $idCliente, cpf: $cpf, nome: $nome, email: $email, dataNascimento: $dataNascimento)';
+    return nome ?? ''; // Retorna o nome ou uma string vazia se nome for nulo
   }
 
   @override
