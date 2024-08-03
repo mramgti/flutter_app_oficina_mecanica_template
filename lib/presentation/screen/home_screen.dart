@@ -5,12 +5,7 @@ import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endere
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  /* Definindo o nome da rota para Janela. Definimos o atributo
-  como static para que possamos utilizar o nome da rota sem precisar
-  criar a instância da classe. */
   static const String routeName = "homeScreen";
-
-  //Define o item selecionado no menu Drawer
   int _selectedIndex = 0;
 
   HomeScreen({Key? key}) : super(key: key);
@@ -19,24 +14,60 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Oficina Mecânica'),
+        backgroundColor: const Color.fromARGB(255, 115, 185, 243),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(child: _drawer(context)),
-      body: Container(),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue[400]!, Colors.blue[200]!],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.build, size: 100, color: Colors.white),
+                SizedBox(height: 20),
+                Text(
+                  'Bem-vindo à Oficina Mecânica!',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Selecione uma opção no menu lateral.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  /// Método responsável por criar o menu Drawer
-  /// da aplicação
   Widget _drawer(BuildContext context) {
     return Container(
-      color: Colors.blue[400], // Substitua pela cor desejada
+      color: Colors.blue[400],
       child: ListView(
         children: [
           const DrawerHeader(
             child: Text(
               "Menu",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
           ListTile(
@@ -77,15 +108,11 @@ class HomeScreen extends StatelessWidget {
           ListTile(
             title: const Text("Admin", style: TextStyle(color: Colors.white)),
             selected: _selectedIndex == 4,
-            leading: const Icon(
-              Icons.key,
-              color: Colors.white,
-            ),
+            leading: const Icon(Icons.key, color: Colors.white),
             onTap: () async {
               _selectedIndex = 4;
               Navigator.pop(context);
-              await Navigator.pushNamed(
-                  context, AdminScreen.routeName);
+              await Navigator.pushNamed(context, AdminScreen.routeName);
             },
           ),
         ],
