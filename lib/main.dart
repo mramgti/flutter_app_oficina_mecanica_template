@@ -13,8 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(  
       debugShowCheckedModeBanner: false,   
-      initialRoute: IntroScreen.routeName, // Define a rota principal
-      routes: RoutesNames.routesNames, // Define as rotas da aplicação
+      initialRoute: IntroScreen.routeName,
+      routes: RoutesNames.routesNames,
     );
   }
 }

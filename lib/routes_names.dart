@@ -1,4 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/admin_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios.form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_funcionario/tipo_funcionario_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_funcionario/tipo_funcionario_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_pagamento/tipo_pagamento_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_pagamento/tipo_pagamento_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_servico/tipo_servico_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_servico/tipo_servico_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_status/tipo_status_form_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_status/tipo_status_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/veiculos/veiculos_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_search_screen.dart';
@@ -18,5 +31,18 @@ class RoutesNames {
         VeiculosFormScreen.routeName: (context) => VeiculosFormScreen(),
         EnderecoSearchScreen.routeName: (context) => EnderecoSearchScreen(),
         EnderecoFormScreen.routeName: (context) => EnderecoFormScreen(),
+        AdminScreen.routeName: (context) => AdminScreen(),
+        TipoFuncionarioSearchScreen.routeName: (context) => TipoFuncionarioSearchScreen(),
+        TipoFuncionarioFormScreen.routeName: (context) => TipoFuncionarioFormScreen(),
+        TipoPagamentoSearchScreen.routeName: (context) => TipoPagamentoSearchScreen(),
+        TipoPagamentoFormScreen.routeName: (context) => TipoPagamentoFormScreen(),
+        TipoPecaServicoSearchScreen.routeName: (context) => TipoPecaServicoSearchScreen(),
+        TipoPecaServicoFormScreen.routeName: (context) => TipoPecaServicoFormScreen(),
+        TipoStatusSearchScreen.routeName: (context) => TipoStatusSearchScreen(),
+        TipoStatusFormScreen.routeName: (context) => TipoStatusFormScreen(),
+        FuncionariosSearchScreen.routeName: (context) => FuncionariosSearchScreen(),
+        FuncionariosFormScreen.routeName: (context) => FuncionariosFormScreen(),
+        FornecedorSearchScreen.routeName: (context) => FornecedorSearchScreen(),
+        FornecedorFormScreen.routeName: (context) => FornecedorFormScreen(),
       };
 }

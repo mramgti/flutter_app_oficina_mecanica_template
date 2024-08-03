@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/admin_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_search_screen.dart';
 
@@ -84,7 +85,7 @@ class HomeScreen extends StatelessWidget {
               _selectedIndex = 4;
               Navigator.pop(context);
               await Navigator.pushNamed(
-                  context, EnderecoSearchScreen.routeName);
+                  context, AdminScreen.routeName);
             },
           ),
         ],
