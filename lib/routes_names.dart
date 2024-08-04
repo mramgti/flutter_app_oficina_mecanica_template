@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/admin_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/estoque_peca_servico/estoque_peca_servico_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/estoque_peca_servico/estoque_peca_servico_form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios.form_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/ordem_servico/ordem_servico_form_screen.dart';
@@ -48,5 +50,7 @@ class RoutesNames {
         FornecedorFormScreen.routeName: (context) => FornecedorFormScreen(),
         OrdemServicoSearchScreen.routeName: (context) => OrdemServicoSearchScreen(),
         OrdemServicoFormScreen.routeName: (context) => OrdemServicoFormScreen(),
+        EstoquePecaServicoSearchScreen.routeName: (context) => EstoquePecaServicoSearchScreen(),
+        EstoquePecaServicoFormScreen.routeName: (context) => EstoquePecaServicoFormScreen(),
       };
 }

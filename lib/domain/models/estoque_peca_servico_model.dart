@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
 
 class EstoquePecaServico extends Entity {
-  int? idEstoquePecaServico;
+  int? idPecaServico;
   String? nome;
   double? precoCompra;
   double? precoVenda;
@@ -12,7 +12,7 @@ class EstoquePecaServico extends Entity {
   int? idTipoPecaServico;
 
   EstoquePecaServico({
-    this.idEstoquePecaServico,
+    this.idPecaServico,
     this.nome,
     this.precoCompra,
     this.precoVenda,
@@ -21,7 +21,7 @@ class EstoquePecaServico extends Entity {
   });
 
   EstoquePecaServico copyWith({
-    int? idEstoquePecaServico,
+    int? idPecaServico,
     String? nome,
     double? precoCompra,
     double? precoVenda,
@@ -29,7 +29,7 @@ class EstoquePecaServico extends Entity {
     int? idTipoPecaServico,
   }) {
     return EstoquePecaServico(
-      idEstoquePecaServico: idEstoquePecaServico ?? this.idEstoquePecaServico,
+      idPecaServico: idPecaServico ?? this.idPecaServico,
       nome: nome ?? this.nome,
       precoCompra: precoCompra ?? this.precoCompra,
       precoVenda: precoVenda ?? this.precoVenda,
@@ -41,7 +41,7 @@ class EstoquePecaServico extends Entity {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'idEstoquePecaServico': idEstoquePecaServico,
+      'idPecaServico': idPecaServico,
       'nome': nome,
       'precoCompra': precoCompra,
       'precoVenda': precoVenda,
@@ -52,7 +52,7 @@ class EstoquePecaServico extends Entity {
 
   factory EstoquePecaServico.fromMap(Map<String, dynamic> map) {
     return EstoquePecaServico(
-      idEstoquePecaServico: map['idEstoquePecaServico'] != null ? map['idEstoquePecaServico'] as int : null,
+      idPecaServico: map['idPecaServico'] != null ? map['idPecaServico'] as int : null,
       nome: map['nome'] != null ? map['nome'] as String : null,
       precoCompra: map['precoCompra'] != null ? map['precoCompra'] as double : null,
       precoVenda: map['precoVenda'] != null ? map['precoVenda'] as double : null,
@@ -67,7 +67,7 @@ class EstoquePecaServico extends Entity {
 
   @override
   String toString() {
-    return 'EstoquePecaServico(idEstoquePecaServico: $idEstoquePecaServico, nome: $nome, precoCompra: $precoCompra, precoVenda: $precoVenda, quantidade: $quantidade, idTipoPecaServico: $idTipoPecaServico)';
+    return 'EstoquePecaServico(idPecaServico: $idPecaServico, nome: $nome, precoCompra: $precoCompra, precoVenda: $precoVenda, quantidade: $quantidade, idTipoPecaServico: $idTipoPecaServico)';
   }
 
   @override
@@ -75,7 +75,7 @@ class EstoquePecaServico extends Entity {
     if (identical(this, other)) return true;
 
     return
-      other.idEstoquePecaServico == idEstoquePecaServico && 
+      other.idPecaServico == idPecaServico && 
       other.nome == nome &&
       other.precoCompra == precoCompra &&
       other.precoVenda == precoVenda &&
@@ -86,7 +86,7 @@ class EstoquePecaServico extends Entity {
   @override
   int get hashCode {
     return 
-      idEstoquePecaServico.hashCode ^
+      idPecaServico.hashCode ^
       nome.hashCode ^
       precoCompra.hashCode ^
       precoVenda.hashCode ^
@@ -101,11 +101,11 @@ class EstoquePecaServico extends Entity {
   
   @override
   
-  get getValueId => idEstoquePecaServico;
+  get getValueId => idPecaServico;
   
   @override
   
-  String get primarykey => "idEstoquePecaServico";
+  String get primarykey => "idPecaServico";
   
   @override
   

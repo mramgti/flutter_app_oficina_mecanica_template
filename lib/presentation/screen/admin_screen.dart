@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_oficina_mecanica_template/presentation/screen/estoque_peca_servico/estoque_peca_servico_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/fornecedor/fornecedor_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/funcionarios/funcionarios_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/tipo_funcionario/tipo_funcionario_search_screen.dart';
@@ -40,6 +41,11 @@ class AdminScreen extends StatelessWidget {
       'FORNECEDOR',
       const Icon(Icons.local_shipping, size: 40, color: Colors.white),
       FornecedorSearchScreen.routeName
+    ],
+            [
+      'ESTOQUE',
+      const Icon(Icons.archive, size: 40, color: Colors.white),
+      EstoquePecaServicoSearchScreen.routeName
     ],
     [
       'STATUS',
