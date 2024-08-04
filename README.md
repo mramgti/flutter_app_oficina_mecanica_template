@@ -1,4 +1,4 @@
-# Mechanical workshop template
+# Mechanical Workshop Template
 
 **Objective**
 
