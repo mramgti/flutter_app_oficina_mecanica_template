@@ -13,7 +13,7 @@ Customer and Vehicle Data Management: Efficiently manage and access detailed inf
 - Financial Management: Oversee financial transactions and maintain financial records.
 - Service Orders: Handle and track service orders effectively.
 
-`Authors`:
+`Authors`
 
 [@mramgti](https://github.com/mramgti)<br>
 [@jpedrou](https://github.com/jpedrou)
