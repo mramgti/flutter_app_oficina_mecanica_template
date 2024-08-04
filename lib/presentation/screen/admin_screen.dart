@@ -28,7 +28,7 @@ class AdminScreen extends StatelessWidget {
     ],
     [
       'SERVIÇO',
-      const Icon(Icons.build, size: 40, color: Colors.white),
+      const Icon(Icons.engineering, size: 40, color: Colors.white),
       TipoPecaServicoSearchScreen.routeName
     ],
     [
@@ -57,32 +57,6 @@ class AdminScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Welcome
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       const Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text('Bem Vindo,'),
-              //           Text(
-              //             'João Pedro',
-              //             style: TextStyle(fontSize: 35),
-              //           )
-              //         ],
-              //       ),
-              //       Icon(
-              //         Icons.car_repair,
-              //         size: 100,
-              //         color: Theme.of(context).colorScheme.inversePrimary,
-              //       )
-              //     ],
-              //   ),
-              // ),
-
               const SizedBox(
                 height: 25,
               ),
@@ -105,12 +79,12 @@ class AdminScreen extends StatelessWidget {
                   itemCount: options.length,
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200, // Largura máxima de cada item
-                    childAspectRatio: 1 / 1.1, // Proporção de aspecto do item
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 1 / 1.1,
                     crossAxisSpacing:
-                        16, // Espaçamento entre os itens na direção horizontal
+                        16,
                     mainAxisSpacing:
-                        16, // Espaçamento entre os itens na direção vertical
+                        16,
                   ),
                   itemBuilder: (context, index) {
                     return MenuBox(
