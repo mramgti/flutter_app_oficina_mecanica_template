@@ -102,7 +102,7 @@ Future<List<Veiculos>> findVeiculosByClienteId(int idCliente) async {
   await databaseProvider.open();
   Database dt = databaseProvider.database;
   List<Map<String, Object?>> result = await dt.query(
-    'veiculos', // nome da tabela de veículos
+    'veiculos',
     where: 'idCliente = ?',
     whereArgs: [idCliente],
   );
@@ -112,7 +112,7 @@ Future<List<Veiculos>> findVeiculosByClienteId(int idCliente) async {
   if (result.isNotEmpty) {
     for (int i = 0; i < result.length; i++) {
       Map<String, Object?> item = result[i];
-      Veiculos entityResult = Veiculos.fromMap(item); // Use o método da instância corretamente
+      Veiculos entityResult = Veiculos.fromMap(item);
       entityResults.add(entityResult);
     }
   }
