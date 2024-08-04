@@ -21,7 +21,7 @@ Customer and Vehicle Data Management: Efficiently manage and access detailed inf
 
 ## Tecnologies Used
 
-### languages
+### Languages
 
 | Flutter | Dart |
 |----------|----------|
