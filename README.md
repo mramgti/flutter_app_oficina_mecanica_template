@@ -15,8 +15,11 @@ Customer and Vehicle Data Management: Efficiently manage and access detailed inf
 
 `Authors`
 
-[@mramgti](https://github.com/mramgti)<br>
+[@mramgti](https://github.com/mramgti)
+
 [@jpedrou](https://github.com/jpedrou)
+
+[@fldemarque](https://github.com/fldemarque)
 
 
 ## Tecnologies Used
