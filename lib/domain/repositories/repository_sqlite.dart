@@ -1,5 +1,7 @@
 import 'package:flutter_app_oficina_mecanica_template/data/database_provider.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/entity.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/models/funcionarios_model.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/models/tipo_funcionario_model.dart';
 import 'package:flutter_app_oficina_mecanica_template/domain/models/veiculos_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -119,4 +121,34 @@ Future<List<Veiculos>> findVeiculosByClienteId(int idCliente) async {
 
   return entityResults;
 }
+
+  Future<Funcionarios?> findUserByCpfAndSenha(String cpf, String senha) async {
+    await databaseProvider.open();
+    Database dt = databaseProvider.database;
+    List<Map<String, Object?>> result = await dt.query(
+      'funcionarios',
+      where: 'cpf = ? AND senha = ?',
+      whereArgs: [cpf, senha],
+    );
+
+    if (result.isNotEmpty) {
+      return Funcionarios.fromMap(result.first);
+    }
+    return null;
+  }
+
+  Future<TipoFuncionario?> findTipoFuncionarioById(int? idTipoFuncionario) async {
+    await databaseProvider.open();
+    Database dt = databaseProvider.database;
+    List<Map<String, Object?>> result = await dt.query(
+      'tipoFuncionario',
+      where: 'idTipoFuncionario = ?',
+      whereArgs: [idTipoFuncionario],
+    );
+
+    if (result.isNotEmpty) {
+      return TipoFuncionario.fromMap(result.first);
+    }
+    return null;
+  }
 }

@@ -3,8 +3,8 @@ import 'package:flutter_app_oficina_mecanica_template/presentation/screen/admin_
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/clientes/clientes_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/endereco/endereco_search_screen.dart';
 import 'package:flutter_app_oficina_mecanica_template/presentation/screen/ordem_servico/ordem_servico_search_screen.dart';
+import 'package:flutter_app_oficina_mecanica_template/domain/models/tipo_funcionario_model.dart';
 
-// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   static const String routeName = "homeScreen";
   int _selectedIndex = 0;
@@ -13,12 +13,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tipoFuncionario = ModalRoute.of(context)?.settings.arguments as TipoFuncionario?;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 115, 185, 243),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: Drawer(child: _drawer(context)),
+      drawer: Drawer(child: _drawer(context, tipoFuncionario)),
       body: Stack(
         children: [
           Container(
@@ -60,7 +62,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _drawer(BuildContext context) {
+  Widget _drawer(BuildContext context, TipoFuncionario? tipoFuncionario) {
     return Container(
       color: Colors.blue[400],
       child: ListView(
@@ -72,50 +74,45 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title:
-                const Text("Clientes", style: TextStyle(color: Colors.white)),
+            title: const Text("Clientes", style: TextStyle(color: Colors.white)),
             leading: const Icon(Icons.people, color: Colors.white),
             onTap: () async {
               _selectedIndex = 0;
               Navigator.pop(context);
-              await Navigator.pushNamed(
-                  context, ClientesSearchScreen.routeName);
+              await Navigator.pushNamed(context, ClientesSearchScreen.routeName);
             },
           ),
           ListTile(
-            title:
-                const Text("Serviços", style: TextStyle(color: Colors.white)),
+            title: const Text("Serviços", style: TextStyle(color: Colors.white)),
             selected: _selectedIndex == 1,
             leading: const Icon(Icons.home_repair_service, color: Colors.white),
             onTap: () async {
               _selectedIndex = 1;
               Navigator.pop(context);
-              await Navigator.pushNamed(
-                  context, OrdemServicoSearchScreen.routeName);
+              await Navigator.pushNamed(context, OrdemServicoSearchScreen.routeName);
             },
           ),
           ListTile(
-            title:
-                const Text("Financeiro", style: TextStyle(color: Colors.white)),
+            title: const Text("Financeiro", style: TextStyle(color: Colors.white)),
             selected: _selectedIndex == 3,
             leading: const Icon(Icons.attach_money, color: Colors.white),
             onTap: () async {
               _selectedIndex = 3;
               Navigator.pop(context);
-              await Navigator.pushNamed(
-                  context, EnderecoSearchScreen.routeName);
+              await Navigator.pushNamed(context, EnderecoSearchScreen.routeName);
             },
           ),
-          ListTile(
-            title: const Text("Admin", style: TextStyle(color: Colors.white)),
-            selected: _selectedIndex == 4,
-            leading: const Icon(Icons.key, color: Colors.white),
-            onTap: () async {
-              _selectedIndex = 4;
-              Navigator.pop(context);
-              await Navigator.pushNamed(context, AdminScreen.routeName);
-            },
-          ),
+          if (tipoFuncionario?.nome == 'Administrador')
+            ListTile(
+              title: const Text("Admin", style: TextStyle(color: Colors.white)),
+              selected: _selectedIndex == 4,
+              leading: const Icon(Icons.key, color: Colors.white),
+              onTap: () async {
+                _selectedIndex = 4;
+                Navigator.pop(context);
+                await Navigator.pushNamed(context, AdminScreen.routeName);
+              },
+            ),
         ],
       ),
     );
